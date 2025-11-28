@@ -21,7 +21,7 @@ import smplx
 import glob
 
 from .build_vocab import Vocab
-from .utils.audio_features import Wav2Vec2Model
+# from .utils.audio_features import Wav2Vec2Model
 from .data_tools import joints_list
 from .utils import rotation_conversions as rc
 from .utils import other_tools
@@ -77,6 +77,7 @@ class CustomDataset(Dataset):
             
         if build_cache and self.rank == 0:
             self.build_cache(preloaded_dir)
+        # print(f'build_cache : {build_cache} ')
         self.lmdb_env = lmdb.open(preloaded_dir, readonly=True, lock=False)
         with self.lmdb_env.begin() as txn:
             self.n_samples = txn.stat()["entries"] 

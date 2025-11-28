@@ -3,6 +3,8 @@ ddp: False
 stat: ts
 root_path: ./
 out_path: ./outputs/audio2pose/
+#!
+output_dir: ./outputs/
 project: s2g
 e_path:  weights/AESKConv_240_100.bin
 eval_model: motion_representation

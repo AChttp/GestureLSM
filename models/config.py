@@ -1,9 +1,12 @@
+from __future__ import annotations
+# Python 3.9 之前不支持把内置类型（如 list）直接用中括号下标 利用上述代码 让类型注解以字符串形式延迟解析。
 import os
 import importlib
 from typing import Type, TypeVar
 from argparse import ArgumentParser
 
 from omegaconf import OmegaConf, DictConfig
+
 
 
 def get_module_config(cfg_model: DictConfig, paths: list[str], cfg_root: str) -> DictConfig:

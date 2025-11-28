@@ -98,7 +98,7 @@ class BaseTrainer(object):
         eval_copy = getattr(eval_model_module, 'VAESKConv')(eval_args).to(self.rank)
         other_tools.load_checkpoints(
             eval_copy, 
-            './datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/weights/AESKConv_240_100.bin', 
+            '/root/datasets/gesture/BEAT2/beat_english_v2.0.0/weights/AESKConv_240_100.bin', 
             'VAESKConv'
         )
         self.eval_copy = eval_copy

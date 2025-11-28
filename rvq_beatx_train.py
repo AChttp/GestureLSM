@@ -144,7 +144,7 @@ from dataloaders.mix_sep import CustomDataset
 from utils.config import parse_args
 
 dataset_args, _ = parse_args("configs/beat2_rvqvae.yaml")
-build_cache = False
+build_cache = True
 
 trainSet = CustomDataset(dataset_args,"train",build_cache = build_cache)
 testSet = CustomDataset(dataset_args,"test",build_cache = build_cache)
@@ -229,7 +229,7 @@ args.variational = False
 args.data_path_1 = "./datasets/hub/"
 args.vae_grow = [1,1,2,1]
 eval_copy = getattr(eval_model_module, 'VAESKConv')(args).to('cuda')
-other_tools.load_checkpoints(eval_copy, './datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/'+'weights/AESKConv_240_100.bin', 'VAESKConv')
+other_tools.load_checkpoints(eval_copy, '/root/datasets/gesture/BEAT2/beat_english_v2.0.0/'+'weights/AESKConv_240_100.bin', 'VAESKConv')
 eval_copy.eval()
 mean_pose = './mean_std/beatx_2_330_mean.npy'
 std_pose = './mean_std/beatx_2_330_std.npy'

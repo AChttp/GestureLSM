@@ -7,7 +7,8 @@ project: s2g
 e_path:  weights/AESKConv_240_100.bin
 eval_model: motion_representation
 e_name: VAESKConv
-data_path: ./datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/
+# data_path: ./datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/
+data_path: /root/datasets/gesture/BEAT2/beat_english_v2.0.0
 test_ckpt: ./ckpt/new_540_shortcut.bin
 data_path_1: ./datasets/hub/
 pose_norm: True

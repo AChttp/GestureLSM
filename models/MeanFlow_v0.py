@@ -422,33 +422,17 @@ class GestureMF(torch.nn.Module):
         x_t = (1 - t) * latents + t * x0_noise
         v = x0_noise - latents
 
-        
+        #！Guided velocity  先不进行guided
+        v_guided = v
+
         batch_size = latents.shape[0]
         flow_batch_size = int(batch_size * 3/4)
         #! 考虑下面是否一定要做
         # Apply conditional dropout during training for flow matching loss
-        audio_features_flow, keep_mask = self.apply_conditional_dropout(audio_features, cond_drop_prob=0.1)
+        # audio_features_flow = self.apply_conditional_dropout(audio_features[:flow_batch_size], cond_drop_prob=0.1)
 
         audio_features_flow = audio_features
         
-        #！Guided velocity  先不进行guided
-        #! 这里不确定对不对  暂时先这样 后面再看看文章
-        with torch.no_grad():
-            model_output = self.apply_classifier_free_guidance(
-                x=x_t,
-                timesteps=t.reshape(x_t.shape[0]),
-                cond_time=torch.zeros_like(t).reshape(x_t.shape[0]), #! 注意这里对不对
-                seed=seed_vectors,
-                at_feat=audio_features_flow,
-                guidance_scale=self.guidance_scale
-            )
-            v_guided = v
-            # print(v_guided.shape, model_output.shape)
-            # torch.Size([128, 384, 1, 32]) torch.Size([128, 384, 1, 32])
-            # print(keep_mask.shape) [96]?
-            v_guided[~keep_mask] = model_output[~keep_mask]
-
-
         # Compute u_tr (average velocity) and du_dt using jvp
         def u_fn(x_t, t, r):
             return self.u_fn(x_t, t, r, seed_vectors, audio_features_flow)
@@ -462,11 +446,10 @@ class GestureMF(torch.nn.Module):
         u_tgt = v_guided - (t - r) * du_dt
         denosing_loss = adaptive_l2_loss(u - stopgrad(u_tgt))
 
-        # # v_loss #!
-        # v_loss = torch.sum((u - v) ** 2, dim=(1, 2, 3)).mean().detach() 
-
+        # v_loss
+        v_loss = torch.sum((u - v) ** 2, dim=(1, 2, 3)).mean().detach()
         losses = {}
         losses["denosing_loss"] = denosing_loss
-        # losses["v_loss"] = v_loss
+        losses["v_loss"] = v_loss
         losses["loss"] = sum(losses.values())
         return losses

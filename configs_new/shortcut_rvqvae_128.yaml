@@ -1,7 +1,7 @@
 wandb_project: 'GestureLSM'
 exp_name: 'shortcut_rvqvae_128'
 
-wandb_entity: 'xxxx'
+wandb_entity: 'winnerai'
 wandb_key: "xxxxxxx"
 wandb_log_dir: './outputs/wandb'
 output_dir: ./outputs/weights
@@ -51,7 +51,8 @@ data:
   audio_norm: False
   
   data_path_1: ./datasets/hub/
-  data_path: ./datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/
+  # data_path: ./datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/
+  data_path: /root/datasets/gesture/BEAT2/beat_english_v2.0.0/
   training_speakers: [2]
   additional_data: False
   cache_path: ./datasets/beat_cache/beat_smplx_en_emage_2_128/
@@ -98,7 +99,8 @@ model:
   modality_encoder:
     target: models.layers.modality_encoder.ModalityEncoder
     params:
-      data_path: ./datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/
+      # data_path: ./datasets/BEAT_SMPL/beat_v2.0.0/beat_english_v2.0.0/
+      data_path: /root/datasets/gesture/BEAT2/beat_english_v2.0.0/
       t_fix_pre: False
       audio_dim: 256
       audio_in: 2
