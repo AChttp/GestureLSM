@@ -151,3 +151,10 @@ solver:
   lr_min: 1e-7
   weight_decay: 0.0
   opt_betas: [0.5, 0.999]
+
+render:
+  render_video_fps: 30
+  render_video_width: 1920
+  render_video_height: 720
+  render_concurrent_num: 1
+  render_tmp_img_filetype: "bmp"

@@ -31,7 +31,7 @@ class CustomDataset(Dataset):
     def __init__(self, args, loader_type, augmentation=None, kwargs=None, build_cache=True):
         self.args = args
         self.loader_type = loader_type
-
+        
         self.rank = 0
         self.ori_stride = self.args.stride
         self.ori_length = self.args.pose_length

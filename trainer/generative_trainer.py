@@ -823,10 +823,17 @@ class CustomTrainer(BaseTrainer):
                             gender="neutral",
                             mocap_frame_rate=30,
                         )
+                        
 
                     elif mode == "test_render":
                         # Save results and render for test_render mode
-                        audio_name = loaded_data["audio_name"][0]
+                        # audio_name = loaded_data["audio_name"][0]
+                        
+                        audio_name = self.cfg.data.data_path\
+                        + "wave16k/"\
+                        + test_seq_list.iloc[its]["id"]\
+                        + ".wav"
+
                         rec_pose_np = rec_pose.detach().cpu().numpy()
                         rec_trans_np = (
                             rec_trans.detach().cpu().numpy().reshape(bs * n, 3)
@@ -858,7 +865,7 @@ class CustomTrainer(BaseTrainer):
                             results_npz_file_save_path,
                             results_save_path,
                             audio_name,
-                            self.cfg.data_path_1 + "smplx_models/",
+                            self.cfg.data.data_path_1 + "smplx_models/",
                             use_matplotlib=False,
                             args=self.cfg,
                         )

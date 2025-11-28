@@ -742,12 +742,12 @@ def render_one_sequence_no_gt(
         seconds = 1
     else:
         seconds = vertices_all.shape[0]//30
-    silent_video_file_path = utils.fast_render.generate_silent_videos_no_gt(args.render_video_fps,
-                                                                args.render_video_width,
-                                                                args.render_video_height,
-                                                                args.render_concurrent_num,
-                                                                args.render_tmp_img_filetype,
-                                                                int(seconds*args.render_video_fps), 
+    silent_video_file_path = utils.fast_render.generate_silent_videos_no_gt(args.render.render_video_fps,
+                                                                args.render.render_video_width,
+                                                                args.render.render_video_height,
+                                                                args.render.render_concurrent_num,
+                                                                args.render.render_tmp_img_filetype,
+                                                                int(seconds*args.render.render_video_fps), 
                                                                 vertices_all,
                                                                 faces,
                                                                 output_dir)

@@ -53,7 +53,7 @@ def prepare_all():
     parser.add_argument(
         "--mode",
         type=str,
-        choices=["train", "test"],
+        choices=["train", "test", "test_render"],
         default="train",
         help="Choose between 'train' or 'test' mode",
     )
@@ -247,6 +247,8 @@ def main_worker(rank, world_size, cfg, args):
         trainer.test(999)
     elif args.mode == "test" and cfg.data.test_clip:
         trainer.test_clip(999)
+    elif args.mode == "test_render":
+        trainer.test_render(999)
 
 
 if __name__ == "__main__":
